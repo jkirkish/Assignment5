@@ -2,24 +2,22 @@ package com.coderscampus.arraylist;
 
 public class CustomArrayList<T> implements CustomList<T> {
 	Object[] items = new Object[10];
-	int size = 0;
-	int arrayLength = 0;
+	int itemCounter = 0;
 
 	@Override
 	public boolean add(T item) {
 
-		if (arrayLength == items.length)
+		if (itemCounter == items.length)
 			items = growArray();
-		items[arrayLength] = item;
-		arrayLength = arrayLength + 1;
+		items[itemCounter++] = item;
 
 		return true;
 	}
 
 	@Override
 	public int getSize() {
-		size = items.length;
-		return size;
+		
+		return itemCounter;
 	}
 
 	@Override
@@ -28,15 +26,16 @@ public class CustomArrayList<T> implements CustomList<T> {
 		return (T) items[index];
 	}
 
-	public Object[] growArray() {
+	private Object[] growArray() {
 
-		Object[] tmp = new Object[getSize() * 2];
-		int j = 0;
-		while (j < items.length) {
-			tmp[j] = items[j];
-			j++;
+		Object[] backingArray = new Object[items.length * 2];
+		System.out.println("BackingArrayLength: " + backingArray.length);
+		int counter = 0;
+		while (counter < items.length) {
+			backingArray[counter] = items[counter];
+			counter++;
 		}
-		return tmp;
+		return backingArray;
 
 	}
 
